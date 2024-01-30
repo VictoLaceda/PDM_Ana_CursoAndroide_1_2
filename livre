@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Pede ao usuário o nome do processo
+echo "Digite o nome do processo:"
+read nome_do_processo
+echo "Digite cpu:"
+read cpu
+
+# Obtém todos os PIDs do processo
+pids=$(pgrep $nome_do_processo)
+
+# Converte a lista de PIDs em um vetor
+vetor_pids=($pids)
+
+# Percorre o vetor e imprime todos os PIDs
+for pid in "${vetor_pids[@]}"
+do
+   echo $pid
+   taskset -pc $cpu $pid 
+done
